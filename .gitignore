@@ -1,0 +1,12 @@
+# cache
+__pycache__
+cache
+
+# results
+*.bp
+*.csv
+*.log
+*.out
+
+# OS cruft
+.DS_Store

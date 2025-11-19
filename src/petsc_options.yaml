@@ -1,0 +1,102 @@
+# © 2025 ETH Zürich, Jonas Heinzmann, Francesco Vicentini, Pietro Carrara, Laura De Lorenzis
+
+# PETSc options for the 1D (u,η) solver
+un:
+  snes:
+    type: vinewtonrsls
+    stol: 1.0e-32
+    rtol: 1.0e-32
+    atol: 2.0e-9
+    max_it: 10000
+    max_fail: 500
+    divergence_tolerance: 1e10
+    max_funcs: 1000000000
+    monitor:
+    converged_reason:
+    linesearch:
+      monitor:
+      type: bisection
+      atol: 1.0e-15
+      rtol: 0.0
+      ltol: 1.0e-9
+  ksp:
+    type: preonly
+  pc:
+    type: cholesky
+    factor_mat_solver_type: mumps
+  mat_mumps_icntl: # MUMPS options https://mumps-solver.org/doc/userguide_5.8.1.pdf
+    1: 6 # output stream for error messages (6: stdout in Fortran)
+    2: 0 # output stream for diagnostic printing (on each process)
+    3: 6 # output stream for global information (6: stdout in Fortran)
+    4: 1 # level of printing (1: only errors, 2: + warnings & main statistics)
+    14: 100 # percentage increase in the estimated working space
+    23: 10000 # maximum size of the working memory in MB
+
+# PETSc options for the 2D (u,ηtr,ηdev) solver
+untrndev:
+  snes:
+    type: vinewtonrsls
+    stol: 1.0e-32
+    rtol: 1.0e-32
+    atol: 1.2e-9
+    max_it: 20000
+    max_fail: 500
+    divergence_tolerance: 1e10
+    max_funcs: 1000000000
+    monitor:
+    converged_reason:
+    linesearch:
+      monitor:
+      type: bisection
+      atol: 1.0e-15
+      rtol: 0.0
+      ltol: 1.0e-9
+      max_it: 50
+  ksp:
+    type: preonly
+  pc:
+    type: cholesky
+    factor_mat_solver_type: mumps
+  mat_mumps_icntl: # MUMPS options https://mumps-solver.org/doc/userguide_5.8.1.pdf
+    1: 6 # output stream for error messages (6: stdout in Fortran)
+    2: 0 # output stream for diagnostic printing (on each process)
+    3: 6 # output stream for global information (6: stdout in Fortran)
+    4: 1 # level of printing (1: only errors, 2: + warnings & main statistics)
+    14: 500 # percentage increase in the estimated working space (for some r=inf cases, this might be necessary)
+    23: 10000 # maximum size of the working memory in MB
+
+# PETSc options for the α solver
+a:
+  snes:
+    type: vinewtonrsls
+    stol: 1.0e-32
+    rtol: 1.0e-32
+    atol: 1.0e-9
+    max_it: 10000
+    max_fail: 500
+    divergence_tolerance: 1e10
+    max_funcs: 1000000000
+    monitor:
+    converged_reason:
+    linesearch:
+      monitor:
+      type: bisection
+      atol: 1.0e-12
+      rtol: 0.0
+      ltol: 1.0e-9
+      max_it: 50
+  ksp:
+    type: preonly
+  pc:
+    type: cholesky
+    factor_mat_solver_type: mumps
+  mat_mumps_icntl: # MUMPS options https://mumps-solver.org/doc/userguide_5.8.1.pdf
+    1: 6 # output stream for error messages (6: stdout in Fortran)
+    2: 0 # output stream for diagnostic printing (on each process)
+    3: 6 # output stream for global information (6: stdout in Fortran)
+    4: 1 # level of printing (1: only errors, 2: + warnings & main statistics)
+    14: 100 # percentage increase in the estimated working space
+    23: 10000 # maximum size of the working memory in MB
+
+# do not print the unused options
+options_left: false

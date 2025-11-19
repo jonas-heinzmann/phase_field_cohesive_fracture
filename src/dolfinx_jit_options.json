@@ -1,0 +1,1 @@
+{"cache_dir": "./cache/", "cffi_extra_compile_args": ["-O3", "-march=native"], "cffi_verbose": true}
