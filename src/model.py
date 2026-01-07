@@ -80,7 +80,7 @@ class LinearElasticity:
         """strain energy density"""
 
         if self.dim == 1:
-            return 1 / 2 * self.E * ε_
+            return 1 / 2 * self.E * ε_**2
 
         else:
             return self.λ / 2 * ufl.tr(ε_) ** 2 + self.μ * ufl.inner(ε_, ε_)
